@@ -6,21 +6,39 @@
     <meta charset="UTF-8">
     <title>Web Project</title>
 
-    <link rel="stylesheet" href="{% static '/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/all.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static '/css/sb-admin-2.min.css' %}">
 
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 </head>
-<body>
-    <div class="sidebar">
-        {% include 'sidebar.html' %}
-    </div>
-    
-    <div class="content">
-        {% block content %}
-        {% endblock %}
+<body id="page-top">
+
+    <div id="wrapper">
+        
+        <!-- 사이드 바-->
+        <div class="sidebar">
+            {% include 'sidebar.html' %}
+        </div>
+
+        <!-- 컨텐츠 필드 -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            
+            <div id="content">
+                <!-- 탑 바-->
+                <div class="topbar">
+                    {% include 'topbar.html' %}
+                </div>
+                
+                <!-- 컨텐츠 내용 -->
+                <div class="container-fluid">
+                    {# <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>    컨텐츠 필드에서 제목 사용할 때 class 형식#}
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -21,8 +21,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
-    path('', views.index, name='index'),
+    path('', views.index, name='main'),
 
-    path('board/', include("board.urls"), name="board"),
-    path('protect_board/', include("protect_board.urls"), name="protect_board"),
+    path('board/', include("board.urls") ),
+    path('protect_board/', include("protect_board.urls")),
 ]

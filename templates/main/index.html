@@ -1,25 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+    <h1 class="h3 mb-4 text-gray-800">팀 소개</h1>
     
-    <h1 class="h3 mb-4 text-gray-800">Introduce Team</h1>
-    
-    {% with title="오상엽" description="자기 소개" position="팀장"%}
+    {% with title="오상엽" description="자기 소개" position="팀장" img=""%}
         {% include 'main/card.html' %}
     {% endwith %}
-    
+
     {% with title="유경미" description="자기 소개" position="팀원"%}
         {% include 'main/card.html' %}
     {% endwith %}
-    
-    
+
+
     {% with title="이지민" description="자기 소개" position="팀원"%}
         {% include 'main/card.html' %}
     {% endwith %}
-    
-    
+
+
     {% with title="차훈영" description="자기 소개" position="팀원"%}
         {% include 'main/card.html' %}
     {% endwith %}
-    
+
 {% endblock %}

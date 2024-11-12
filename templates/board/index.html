@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script> {# DataTable은 jQuery 라이브러리에 의존하기 때문에 jQuery도 함께 로드 #}
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
-    {#  #}
 {% endblock %}
 
 {% block content %}
@@ -17,54 +15,52 @@
     <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
 
     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>글쓴이</th>
-                                            <th>작성일</th>
-{#                                            <th>조회</th>#}
-{#                                            <th>추천</th>#}
-                                        </tr>
-                                    </thead>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>글쓴이</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
 
-                                    <tbody>
-                                        {% if rows%}
-                                            {% for row in rows %}
-                                                <tr>
-                                                    <td>{{ row.0 }}</td> {# 글 ID #}
-                                                    <td>{{ row.2 }}</td> {# 글 제목 #}
-                                                    <td>Anonymous</td> {# 글쓴이 #}
-                                                    <td>{{ row.4 }}</td> {# 작성일 #}
-                                                </tr>
-                                            {% endfor %}
+                    <tbody>
+                        {% if rows%}
+                            {% for row in rows %}
+                                <tr>
+                                    <td>{{ row.0 }}</td> {# 글 ID #}
+                                    <td>{{ row.2 }}</td> {# 글 제목 #}
+                                    <td>Anonymous</td> {# 글쓴이 #}
+                                    <td>{{ row.4 }}</td> {# 작성일 #}
+                                </tr>
+                            {% endfor %}
 
-                                        {% else %}
-                                            <tr>
-                                                <td></td>
-                                                <td>작성된 글이 없습니다.</td>
-                                            </tr>
-                                        {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        {% else %}
+                            <tr>
+                                <td></td>
+                                <td>작성된 글이 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
-    {# 테이블 페이지네이션 하는 js 코드 #}
+    {# 생성된 table을 dataTable로 만드는 js 코드 #}
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();
         });
+
     </script>
     {# $(document).ready(function() : 페이지가 로드되면 실행될 함수를 생성#}
     {# $('#dataTable').DataTable : DataTable함수를 사용해서 id가 dataTable인 요소를 선택해서 그 테이블을 DataTable로 만들어 줌 #}
-    {# {"pageLength": 10} : 최대로 보여줄 개수를 10개로 설정 #}
 {% endblock %}

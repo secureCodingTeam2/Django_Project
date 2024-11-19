@@ -11,20 +11,21 @@
 {% block content %}
 
     
-    {# 생성된 table을 dataTable로 만드는 js 코드 #}
+{#     생성된 table을 dataTable로 만드는 js 코드#}
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable();
         });
 
     </script>
-    {# $(document).ready(function() : 페이지가 로드되면 실행될 함수를 생성#}
-    {# $('#dataTable').DataTable : DataTable함수를 사용해서 id가 dataTable인 요소를 선택해서 그 테이블을 DataTable로 만들어 줌 #}
+{#     $(document).ready(function() : 페이지가 로드되면 실행될 함수를 생성#}
+{#     $('#dataTable').DataTable : DataTable함수를 사용해서 id가 dataTable인 요소를 선택해서 그 테이블을 DataTable로 만들어 줌#}
 
-    
-    <!-- Page Heading -->
+        
+        <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">취약한 게시판</h1>
     <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
+
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -47,7 +48,7 @@
                             {% for row in rows %}
                                 <tr>
                                     <td>{{ row.0 }}</td> {# 글 ID #}
-                                    <td>{{ row.2 }}</td> {# 글 제목 #}
+                                    <td><a href="">{{ row.2 }}</a></td> {# 글 제목 #}
                                     <td>Anonymous</td> {# 글쓴이 #}
                                     <td>{{ row.4 }}</td> {# 작성일 #}
                                 </tr>

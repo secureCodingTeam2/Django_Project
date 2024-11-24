@@ -6,34 +6,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {# 아래 검색이랑 title 출력하는건 base로 block 다시 빼서 중복 사용 가능하도록 구현하기 #}
-    <div class> {# 클래스 하나 만들고 css에 div 반으로 나누는 거 추가 #}
-        <h1 class="h3 mb-4 text-gray-800">자기 소개</h1>
-    
-        <div class="input-group mb-3">
-            <input type="text" class="form-control small" id="search" placeholder="input..."  >
-            <button class="btn btn-primary" type="submit" id="button">
-                <i class="fas fa-search fa-sm"></i>
-            </button>
-        </div>
-    </div>
+    <h1 class="h3 mb-4 text-gray-800 col">팀 소개</h1>
 
-
-    {% with title="오상엽" description="자기 소개" link="https://github.com/hunyoungcha" img=""%}
+    {% with title="오상엽" description="자기 소개" position="팀장" img=""%}
         {% include 'main/card.html' %}
     {% endwith %}
 
-    {% with title="유경미" description="자기 소개" link="https://github.com/hunyoungcha" %}
+    {% with title="유경미" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
 
 
-    {% with title="이지민" description="자기 소개" link="https://github.com/hunyoungcha" %}
+    {% with title="이지민" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
 
 
-    {% with title="차훈영" description="자기 소개" link="https://github.com/hunyoungcha" %}
+    {% with title="차훈영" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
 

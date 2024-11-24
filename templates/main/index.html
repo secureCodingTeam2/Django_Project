@@ -1,25 +1,30 @@
+{# 페이징하는 건 글이 4개 이상일 경우로 설정 #}
+{# table 버리고 지금 main처럼 글 보이게 하기 #}
+{# 글쓰기 버튼은 왼쪽 하단에 추가하기 #}
+{# 페이징은 오른쪽 하단에 추가 #}
+
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1 class="h3 mb-4 text-gray-800 col">팀 소개</h1>
 
-    <h1 class="h3 mb-4 text-gray-800">팀 소개</h1>
-    
     {% with title="오상엽" description="자기 소개" position="팀장" img=""%}
         {% include 'main/card.html' %}
     {% endwith %}
 
-    {% with title="유경미" description="자기 소개" position="팀원"%}
+    {% with title="유경미" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
 
 
-    {% with title="이지민" description="자기 소개" position="팀원"%}
+    {% with title="이지민" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
 
 
-    {% with title="차훈영" description="자기 소개" position="팀원"%}
+    {% with title="차훈영" description="자기 소개" position="팀원" %}
         {% include 'main/card.html' %}
     {% endwith %}
+
 
 {% endblock %}

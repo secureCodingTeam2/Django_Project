@@ -16,12 +16,10 @@
 {#  </div>#}
 {#</div>#}
 
-{##}
-{#<div class="card mb-3">#}
-{#  <img src="{% static '/img/logo.png' %}" class="card-img-top" alt="...">#}
-{#  <div class="card-body">#}
-{#    <h5 class="card-title">{{ title }}</h5>#}
-{#    <p class="card-text">{{ description }}</p>#}
-{#    <small class="text-body-secondary">{{ position }}</small>#}
-{#  </div>#}
-{#</div>#}
+<div class="card" style="width: 100%; margin-bottom: 20px">
+  <img src="{% static 'img/logo.png' %}" class="card-img-top" style="max-height: 280px; object-fit: cover">
+  <div class="card-body">
+    <h5 class="card-title">{{ title }}</h5>
+    <p class="card-text">{{ description }}</p>
+  </div>
+</div>

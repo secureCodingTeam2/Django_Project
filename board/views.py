@@ -10,6 +10,7 @@ def index(request):
         cursor.execute(query)
         rows = cursor.fetchall()
 
+
     context ={
         'rows':rows,
     }

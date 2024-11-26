@@ -21,3 +21,7 @@ def index(request):
     }
 
     return render(request, 'board/index.html',context)
+
+
+def detail(request, board_id):
+    return render(request,'board/detail.html',{'obj':board_id})

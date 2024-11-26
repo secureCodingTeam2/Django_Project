@@ -7,13 +7,13 @@
             <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
         </div>
         <div>
-            <a class="btn btn-primary" href="/" style="text-decoration: none;">글 생성</a>
+            <a class="btn btn-primary" href="/board/" style="text-decoration: none;">글 생성</a>
         </div>
      </div>
     
     {% if obj_list %}
         {% for obj in obj_list %}
-            <a href="/" style="text-decoration: none"> {# a태그 글 확인 페이지/pageid={{ obj.1 }} 로 변경하기 #}
+            <a href="./detail/{{ obj.0 }}/" style="text-decoration: none"> {# a태그 글 확인 페이지/pageid={{ obj.1 }} 로 변경하기 #}
                 <div class="card mb-3">
                     <div class="card-body">
                     

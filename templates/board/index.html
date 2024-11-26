@@ -11,11 +11,13 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ row.2 }}</h5>
+                        
                         {% if row.3|length > 20 %}
                             <p class="card-text">{{ row.3|slice:"20" }}...</p>
                         {% else %}
                             <p class="card-text">{{ row.3 }}</p>
                         {% endif %}
+                        
                         <p class="card-text"><small class="text-body-secondary">Anonymous</small></p>
                     </div>
                 </div>

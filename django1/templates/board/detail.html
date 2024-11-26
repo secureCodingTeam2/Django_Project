@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <h1>게시글 상세 보기</h1>
+
+    <h2>제목</h2>
+    <div>
+        <p>{{ post.title }}</p>
+    </div>
+
+    <h2>내용</h2>
+    <div>
+        <p>{{ post.body }}</p>
+    </div>
+
+    <a href="{% url 'board:editform' post.id %}" class="btn btn-primary mb-3">수정하기</a>
+    <a href="{% url 'board:delete' post.id %}" class="btn btn-primary mb-3">삭제</a>
+</div>
+
+{% endblock %}

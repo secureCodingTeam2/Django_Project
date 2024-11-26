@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">취약한 게시판</h1>
+    <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
+    <a href="{% url 'board:input' %}" class="btn btn-primary mb-3">글쓰기</a>
+    {% if obj_list %}
+        {% for obj in obj_list %}
+            <a href="{% url 'board:detail' obj.0 %}" style="text-decoration: none"> {# a태그 글 확인 페이지/pageid={{ obj.1 }} 로 변경하기 #}
+                <div class="card mb-3">
+                    <div class="card-body">
+                    
+                        {# 제목의 글자가 20자가 넘을 경우 다 출력 하지 않고 ...으로 대체 #}
+                        {% if obj.2|length > 20 %}
+                            <h5 class="card-title">{{ obj.2|slice:"20" }}...</h5>
+                        {% else %}
+                            <h5 class="card-title">{{ obj.2 }}</h5>
+                        {% endif %}
+
+                        {# 텍스트의 글자가 20자가 넘을 경우 다 출력 하지 않고 ...으로 대체 #}
+                        {% if obj.3|length > 20 %}
+                            <p class="card-text">{{ obj.3|slice:"20" }}...</p>
+                        {% else %}
+                            <p class="card-text">{{ obj.3 }}</p>
+                        {% endif %}
+                        
+                        <p class="card-text"><small class="text-body-secondary">Anonymous</small></p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+        
+        <!-- 페이지네이션 -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+
+            {% for num in page_obj.paginator.page_range %} {# 전체 페이지 번호 반복, page_range : 모든 페이지 번호의 범위를 뜻함 #}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}"> {# 현재  내가 위치하는 페이지의 번호를 확인하고 active를 사용해서 시각효과를 줌 #}
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a> {# ?page=num 으로 get 요청을 보내는 num 버튼 생성, 즉 1번을 누르면 /?page=1 로 요청이 가게 됨 #}
+                </li>
+            {% endfor %}
+
+            </ul>
+        </nav>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" action="/board/create/">
+        {% csrf_token %}
+
+        {# title form #}
+        <div class="form-floating">
+            <input type="text" class="form-control" id="title" name="title" placeholder="제목">
+            <label for="floatingPassword">제목</label>
+        </div>
+
+
+        {# text form #}
+        <div class="form-floating" style="margin-top: 10px">
+            <textarea class="form-control" placeholder="Leave a comment here" id="body" name="body" style="height: 400px"></textarea>
+            <label for="floatingTextarea2">내용</label>
+        </div>
+
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; justify-content: flex-end">
+
+            <div class="form-floating" style="width: 15%;">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="height: 3rem;">
+                <label for="floatingPassword">비밀번호</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary"  style="text-decoration: none; height: calc(3rem + 2px); display: flex; align-items: center; ">
+                글 생성
+            </button>
+
+        </div>
+    </form>
+    
+    {% if alert_message %}
+        <script>
+            alert('{{ alert_message }}')
+        </script>
+    {% endif %}
+
+{% endblock %}

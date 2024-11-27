@@ -1,6 +1,10 @@
+from lib2to3.fixes.fix_input import context
+
 from django.shortcuts import render
 from django.db import connection
 from django.core.paginator import Paginator
+
+from datetime import date
 
 # Create your views here.
 
@@ -24,4 +28,33 @@ def index(request):
 
 
 def detail(request, board_id):
-    return render(request,'board/detail.html',{'obj':board_id})
+    return render(request, 'board/detail.html', {'obj':board_id})
+
+def create(request):
+    alert_message = ''
+
+    if request.method == 'POST':
+        title= request.POST.get('title')
+        body = request.POST.get('body')
+        password= request.POST.get('password')
+
+
+        if not title :
+            alert_message='제목을 입력하세요'
+        elif not body :
+            alert_message='내용을 입력하세요'
+        elif not password :
+            alert_message='비밀번호를 입력하세요'
+        else:
+            today = date.today()
+
+            with connection.cursor() as cursor:
+                query = "INSERT INTO board_board (title, body, password, created_at) VALUES (%s, %s, %s, %s)"
+                cursor.execute(query, [title, body, password, today])
+            alert_message='설공적으로 글을 생성하였습니다.'
+
+    context={
+        'alert_message':alert_message,
+    }
+
+    return render(request, 'board/board_create.html', context)

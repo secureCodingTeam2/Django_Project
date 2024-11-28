@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">취약한 게시판</h1>
-    <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
-
+     <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2 text-gray-800">취약한 게시판</h1>
+            <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
+        </div>
+        <div>
+            <a class="btn btn-primary" href="/board/create/" style="text-decoration: none;">글 생성</a>
+        </div>
+     </div>
+    
     {% if obj_list %}
         {% for obj in obj_list %}
-            <a href="/" style="text-decoration: none"> {# a태그 글 확인 페이지/pageid={{ obj.1 }} 로 변경하기 #}
+            <a href="./detail/{{ obj.0 }}/" style="text-decoration: none"> {# a태그 글 확인 페이지/pageid={{ obj.1 }} 로 변경하기 #}
                 <div class="card mb-3">
                     <div class="card-body">
                     
@@ -30,10 +36,10 @@
                 </div>
             </a>
         {% endfor %}
-        
         <!-- 페이지네이션 -->
         <nav aria-label="Page navigation">
-            <ul class="pagination">
+
+            <ul class="pagination justify-content-end">
 
             {% for num in page_obj.paginator.page_range %} {# 전체 페이지 번호 반복, page_range : 모든 페이지 번호의 범위를 뜻함 #}
                 <li class="page-item {% if page_obj.number == num %}active{% endif %}"> {# 현재  내가 위치하는 페이지의 번호를 확인하고 active를 사용해서 시각효과를 줌 #}
@@ -42,6 +48,7 @@
             {% endfor %}
 
             </ul>
+
         </nav>
 
     {% endif %}

@@ -1,4 +1,3 @@
-from lib2to3.fixes.fix_input import context
 
 from django.shortcuts import render, redirect
 from django.db import connection
@@ -11,11 +10,11 @@ from datetime import date
 # Create your views here.
 
 def index(request):
-    query= "SELECT * FROM board_board ORDER BY id DESC"
-
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        rows = cursor.fetchall()
+    # query= "SELECT * FROM board_board ORDER BY id DESC"
+    rows = board.objects.all().order_by('-id')
+    # with connection.cursor() as cursor:
+    #     cursor.execute(query)
+    #     rows = cursor.fetchall()
 
     paginator = Paginator(rows, 4) #페이지네이션을 위한 객체 생성, 파라미터로는 값과 한 페이지에 보일 갯수를 넣음
     page_number = request.GET.get('page') # url을 통해 현재 페이지가 몇 페이지인지 확인하기 위함
@@ -30,6 +29,7 @@ def index(request):
 
 
 def create(request):
+
     alert_message = ''
 
     if request.method == 'POST':
@@ -47,19 +47,16 @@ def create(request):
         else:
             today = date.today()
 
-            with connection.cursor() as cursor:
-                query = "INSERT INTO board_board (title, body, password, created_at) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, [title, body, password, today])
-                board_id = cursor.lastrowid  # 생성된 게시글의 ID 가져오기
+            new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
 
             alert_message='설공적으로 글을 생성하였습니다.'
-            return redirect('board_detail', board_id=board_id)
+            return redirect('board_detail', board_id=new_board.id)
 
     context={
         'alert_message':alert_message,
     }
 
-    return render(request, 'board/board_create.html', context)
+    return render(request, 'board/create.html', context)
 
 def detail(request, board_id):
     post=get_object_or_404(board,pk=board_id)
@@ -101,7 +98,6 @@ def update(request, board_id):
         post.body=body
         post.password=password
         post.save()
-
         return redirect('board_index')
 
     context={

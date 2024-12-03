@@ -3,10 +3,20 @@
 {% block content %}
      <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h1 class="h3 mb-2 text-gray-800">Stored XSS Board</h1>
+            <h1 class="h3 mb-2 text-gray-800">Reflected XSS Board</h1>
             <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
         </div>
         <div>
+            <form method="get" action="./" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="제목으로 검색" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
             <a class="btn btn-primary" href="/board/create/" style="text-decoration: none;">글 생성</a>
         </div>
      </div>

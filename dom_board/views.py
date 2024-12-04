@@ -10,15 +10,11 @@ from datetime import date
 
 def index(request):
     rows=board.objects.all().order_by('-id')
-    search=''
+    search=request.GET.get('search', '') #dom base를 위해 get으로 설정
 
-    if request.method == 'POST': #검색을 시도할 경우 POST로 요청이 들어옴
-        search=request.POST.get('search')
-
-        if search:
-            rows= board.objects.filter(title__iexact=search) #filter함수를 통해 원하는 값을 가져옴
+    if search:
+        rows= board.objects.filter(title__iexact=search) #filter함수를 통해 원하는 값을 가져옴
                                                             #title__iexact : DB에 title을 기준으로 대소문자 구분 없이 문자열이 완전히 일치하는 값을 가져옴
-
 
     paginator = Paginator(rows, 4)  # 페이지네이션을 위한 객체 생성, 파라미터로는 값과 한 페이지에 보일 갯수를 넣음
     page_number = request.GET.get('page')  # url을 통해 현재 페이지가 몇 페이지인지 확인하기 위함

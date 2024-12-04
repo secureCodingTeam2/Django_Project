@@ -7,7 +7,6 @@ from datetime import date
 
 
 # Create your views here.
-
 def index(request):
     rows=board.objects.all().order_by('-id')
     search=request.GET.get('search', '') #dom base를 위해 get으로 설정

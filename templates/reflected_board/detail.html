@@ -16,23 +16,27 @@
 
     <form method="post" action="./">
         {% csrf_token %}
-        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; justify-content: flex-end">
+        <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; position: relative;">
 
-                <div class="form-floating" style="width: 15%;">
+            <p style="position: absolute; left: 0; margin: 0;">{{ date|date:"Y-m-d" }}</p>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+                <div class="form-floating" style="width: 100px;">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="height: 3rem;">
                     <label for="floatingPassword">비밀번호</label>
                 </div>
 
-                <button type="submit" class="btn btn-danger" name="action" value="delete" style="text-decoration: none; height: calc(3rem + 2px); display: flex; align-items: center; ">
+                <button type="submit" class="btn btn-danger" name="action" value="delete" style="text-decoration: none; height: calc(3rem + 2px); display: flex; align-items: center;">
                     삭제
                 </button>
 
-                <button type="submit" class="btn btn-success" name="action" value="update" style="text-decoration: none; height: calc(3rem + 2px); display: flex; align-items: center; ">
+                <button type="submit" class="btn btn-success" name="action" value="update" style="text-decoration: none; height: calc(3rem + 2px); display: flex; align-items: center;">
                     수정
                 </button>
-
+            </div>
         </div>
     </form>
+
     
     {% if messages %}
         {% for message in messages %}

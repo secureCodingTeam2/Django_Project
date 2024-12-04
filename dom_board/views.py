@@ -56,6 +56,7 @@ def create(request):
 
 def detail(request, board_id):
     post = get_object_or_404(board, pk=board_id)
+    date = post.created_at
 
     if request.method == 'POST':
         password = request.POST.get('password')
@@ -78,6 +79,7 @@ def detail(request, board_id):
         'title': post.title,
         'body': post.body,
         'id': post.id,
+        'date': date,
     }
 
     return render(request, 'dom_board/detail.html', context)

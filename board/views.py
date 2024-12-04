@@ -56,6 +56,7 @@ def create(request):
 
 def detail(request, board_id):
     post=get_object_or_404(board,pk=board_id)
+    date = post.created_at
 
     if request.method == 'POST':
         password=request.POST.get('password')
@@ -74,11 +75,11 @@ def detail(request, board_id):
         else:
             messages.error(request,'잘못된 비밀번호 입니다.')
 
-
     context={
         'title':post.title,
         'body':post.body,
         'id': post.id,
+        'date':date,
     }
 
     return render(request, 'board/detail.html', context)

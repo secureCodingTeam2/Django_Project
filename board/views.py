@@ -1,20 +1,23 @@
-
-from django.shortcuts import render, redirect
-from django.db import connection
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
-from .models import board
+from django.contrib import messages
 
+from .models import board
 from datetime import date
 
 # Create your views here.
 
 def index(request):
-    # query= "SELECT * FROM board_board ORDER BY id DESC"
     rows = board.objects.all().order_by('-id')
-    # with connection.cursor() as cursor:
-    #     cursor.execute(query)
-    #     rows = cursor.fetchall()
+
+    search = ''
+
+    if request.method == 'POST':  # 검색을 시도할 경우 POST로 요청이 들어옴
+        search = request.POST.get('search')
+
+        if search:
+            rows = board.objects.filter(title__iexact=search)  # filter함수를 통해 원하는 값을 가져옴
+                                                                # title__iexact : DB에 title을 기준으로 대소문자 구분 없이 문자열이 완전히 일치하는 값을 가져옴
 
     paginator = Paginator(rows, 4) #페이지네이션을 위한 객체 생성, 파라미터로는 값과 한 페이지에 보일 갯수를 넣음
     page_number = request.GET.get('page') # url을 통해 현재 페이지가 몇 페이지인지 확인하기 위함
@@ -23,6 +26,7 @@ def index(request):
     context ={
         'obj_list':page_obj.object_list, # 가져온 페이지 데이터를 리스트형태로 형변환 해서 저장
         'page_obj':page_obj,
+        'search':search,
     }
 
     return render(request, 'board/index.html',context)
@@ -30,36 +34,29 @@ def index(request):
 
 def create(request):
 
-    alert_message = ''
-
     if request.method == 'POST':
         title= request.POST.get('title')
         body = request.POST.get('body')
         password= request.POST.get('password')
 
-
         if not title :
-            alert_message='제목을 입력하세요'
+            messages.error(request,"제목을 입력하세요")
         elif not body :
-            alert_message='내용을 입력하세요'
+            messages.error(request,"내용을 입력하세요")
         elif not password :
-            alert_message='비밀번호를 입력하세요'
+            messages.error(request,"비밀번호를 입력하세요")
         else:
             today = date.today()
 
             new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
+            messages.success(request,'성공적으로 글을 생성했습니다..')
+            return redirect('board:board_detail', board_id=new_board.id)
 
-            alert_message='설공적으로 글을 생성하였습니다.'
-            return redirect('board_detail', board_id=new_board.id)
-
-    context={
-        'alert_message':alert_message,
-    }
-
-    return render(request, 'board/create.html', context)
+    return render(request, 'board/create.html')
 
 def detail(request, board_id):
     post=get_object_or_404(board,pk=board_id)
+    date = post.created_at
 
     if request.method == 'POST':
         password=request.POST.get('password')
@@ -69,27 +66,27 @@ def detail(request, board_id):
             print(delORupt)
             if delORupt == 'delete':
                 post.delete()
-                return redirect('board_index')
+                messages.success(request,'성공적으로 글을 삭제했습니다.')
+                return redirect('board:board_index')
+
             elif delORupt == 'update':
-                return redirect('board_update', board_id=board_id)
-            # else:
-                #404페이지 리턴
+                return redirect('board:board_update', board_id=board_id)
 
-        # else:
-            #잘못된 비밀번호 입니다 alert
-
-
+        else:
+            messages.error(request,'잘못된 비밀번호 입니다.')
 
     context={
         'title':post.title,
         'body':post.body,
         'id': post.id,
+        'date':date,
     }
 
     return render(request, 'board/detail.html', context)
 
 def update(request, board_id):
     post=get_object_or_404(board,pk=board_id)
+
     if request.method == 'POST':
         title=request.POST.get('title')
         body=request.POST.get('body')
@@ -98,7 +95,10 @@ def update(request, board_id):
         post.body=body
         post.password=password
         post.save()
-        return redirect('board_index')
+
+        messages.success(request,'성공적으로 글을 수정했습니다.')
+
+        return redirect('board:board_detail', board_id=board_id)
 
     context={
         'id': post.id,

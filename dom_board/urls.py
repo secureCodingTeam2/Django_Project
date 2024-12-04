@@ -18,7 +18,7 @@ Including another URLconf
 from django.urls import path
 from . import views
 
-app_name = 'protect_board'
+app_name = 'dom_board'
 
 urlpatterns = [
     path('', views.index, name='board_index'),

@@ -24,6 +24,10 @@ urlpatterns = [
     path('', views.index, name='main'),
 
     path('board/', include("board.urls") ),
-    path('protect_board/', include("protect_board.urls")),
     path('reflected_board/', include("reflected_board.urls")),
+
+    path('dom_board/', include("dom_board.urls")),
+
+    path('protect_board/', include("protect_board.urls")),
+
 ]

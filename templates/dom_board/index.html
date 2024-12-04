@@ -1,20 +1,22 @@
+{# 크롬과 같은 브라우저에서는 일반 적인 dom base 의 스크립트는 동작하지 않음 #}
+{# CSP라는 보호 정책이 브라우저에 기본적으로 동작하기 때문#}
+{# CSP란 Content Security Policy로 브라우저에 로드되는 모든 컨텐츠에 대한 보안 정책 #}
+
+{# 때문에 공격 스크립트를 다르게 해야 함 #}
+{# <img src=1 onerror=alert(1)>  #}
+
+
 {% extends 'base.html' %}
+
 
 {% block content %}
      <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h1 class="h3 mb-2 text-gray-800">Reflected XSS Board</h1>
-            {% if search %}
-                <p class="mb-4">"{{ search|safe }}"에 대한 검색 결과입니다.</p>
-                
-            {% else %}
-                <p class="mb-4">이 페이지는 취약한 게시판 페이지 입니다.</p>
-                
-            {% endif %}
+            <h1 class="h3 mb-2 text-gray-800">DOM XSS Board</h1>
+            <p class="mb-4" id="desc"> </p> {# 이 부분의 innerHTML이 동작함 #}
         </div>
         <div>
-            <form method="post" action="./" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                {% csrf_token %}
+            <form method="get" action="./" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="제목으로 검색" aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
@@ -76,4 +78,16 @@
         {% endfor %}
     {% endif %}
     
+        
+    <script>
+        const urlParams = new URLSearchParams(window.location.search); //현재 url의 파라미터 값을 가져오는 코드
+        const search = urlParams.get('search'); // 가져온 파라미터 중 searh의 값을 가져오는 코드
+    
+    
+        if (search) {
+            document.getElementById('desc').innerHTML = `"${search}"에 대한 검색 결과입니다.`;
+        } else {
+            document.getElementById('desc').innerText = "이 페이지는 취약한 게시판 페이지 입니다.";
+        }
+    </script>
 {% endblock %}

@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'board',
     'reflected_board',
+    'dom_board',
     'protect_board',
-
 ]
 
 MIDDLEWARE = [

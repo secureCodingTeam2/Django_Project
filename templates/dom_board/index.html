@@ -71,17 +71,23 @@
         </nav>
 
     {% endif %}
-
     
-<script>
-    const urlParams = new URLSearchParams(window.location.search); //현재 url의 파라미터 값을 가져오는 코드
-    const search = urlParams.get('search'); // 가져온 파라미터 중 searh의 값을 가져오는 코드
-
-
-    if (search) {
-        document.getElementById('desc').innerHTML = `"${search}"에 대한 검색 결과입니다.`;
-    } else {
-        document.getElementById('desc').innerText = "이 페이지는 취약한 게시판 페이지 입니다.";
-    }
-</script>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert('{{ message }}')</script>
+        {% endfor %}
+    {% endif %}
+    
+        
+    <script>
+        const urlParams = new URLSearchParams(window.location.search); //현재 url의 파라미터 값을 가져오는 코드
+        const search = urlParams.get('search'); // 가져온 파라미터 중 searh의 값을 가져오는 코드
+    
+    
+        if (search) {
+            document.getElementById('desc').innerHTML = `"${search}"에 대한 검색 결과입니다.`;
+        } else {
+            document.getElementById('desc').innerText = "이 페이지는 취약한 게시판 페이지 입니다.";
+        }
+    </script>
 {% endblock %}

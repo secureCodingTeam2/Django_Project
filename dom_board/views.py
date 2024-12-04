@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
 from board.models import board
+from django.contrib import messages
+
 
 from datetime import date
 
@@ -31,7 +32,6 @@ def index(request):
 
 
 def create(request):
-    alert_message = ''
 
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -39,24 +39,19 @@ def create(request):
         password = request.POST.get('password')
 
         if not title:
-            alert_message = '제목을 입력하세요'
+            messages.error(request, "제목을 입력하세요")
         elif not body:
-            alert_message = '내용을 입력하세요'
+            messages.error(request, "내용을 입력하세요")
         elif not password:
-            alert_message = '비밀번호를 입력하세요'
+            messages.error(request, "비밀번호를 입력하세요")
         else:
             today = date.today()
 
             new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
+            messages.success(request, '성공적으로 글을 생성했습니다..')
+            return redirect('board:board_detail', board_id=new_board.id)
 
-            alert_message = '설공적으로 글을 생성하였습니다.'
-            return redirect('dom_board:board_index', board_id=new_board.id)
-
-    context = {
-        'alert_message': alert_message,
-    }
-
-    return render(request, 'dom_board/create.html', context)
+    return render(request, 'dom_board/create.html')
 
 
 def detail(request, board_id):
@@ -70,14 +65,14 @@ def detail(request, board_id):
             print(delORupt)
             if delORupt == 'delete':
                 post.delete()
+                messages.success(request,'성공적으로 글을 삭제했습니다.')
                 return redirect('dom_board:board_index')
             elif delORupt == 'update':
                 return redirect('dom_board:board_update', board_id=board_id)
-            # else:
-            # 404페이지 리턴
 
-        # else:
-        # 잘못된 비밀번호 입니다 alert
+        else:
+            messages.error(request, '잘못된 비밀번호 입니다.')
+
 
     context = {
         'title': post.title,
@@ -98,6 +93,9 @@ def update(request, board_id):
         post.body = body
         post.password = password
         post.save()
+
+        messages.success(request,'성공적으로 글을 수정했습니다.')
+
         return redirect('dom_board:board_detail', board_id=board_id)
 
     context = {

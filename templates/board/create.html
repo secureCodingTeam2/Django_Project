@@ -31,10 +31,9 @@
         </div>
     </form>
 
-    {% if alert_message %}
-        <script>
-            alert('{{ alert_message }}')
-        </script>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert('{{ message }}')</script>
+        {% endfor %}
     {% endif %}
-
 {% endblock %}

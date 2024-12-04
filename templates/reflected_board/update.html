@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post" action="/board/update/{{ id }}/">
+    <form method="post" action="./">
         {% csrf_token %}
 
         {# title form #}

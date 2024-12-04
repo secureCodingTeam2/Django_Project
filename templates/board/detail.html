@@ -4,12 +4,12 @@
 {% block content %}
     <div class="form-floating mb-3">
       <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaDisabled" disabled></textarea>
-      <label for="floatingTextareaDisabled">{{ title }}</label>
+      <label for="floatingTextareaDisabled">{{ title|safe }}</label>
     </div>
 
 
     <div class="form-floating mb-3">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px" disabled> {{ body }}</textarea>
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px" disabled> {{ body|safe }}</textarea>
       <label for="floatingTextarea2Disabled"></label>
     </div>
 

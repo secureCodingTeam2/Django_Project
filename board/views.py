@@ -50,7 +50,7 @@ def create(request):
             new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
 
             alert_message='설공적으로 글을 생성하였습니다.'
-            return redirect('board_detail', board_id=new_board.id)
+            return redirect('board:board_detail', board_id=new_board.id)
 
     context={
         'alert_message':alert_message,
@@ -69,9 +69,9 @@ def detail(request, board_id):
             print(delORupt)
             if delORupt == 'delete':
                 post.delete()
-                return redirect('board_index')
+                return redirect('board:board_index')
             elif delORupt == 'update':
-                return redirect('board_update', board_id=board_id)
+                return redirect('board:board_update', board_id=board_id)
             # else:
                 #404페이지 리턴
 
@@ -98,7 +98,7 @@ def update(request, board_id):
         post.body=body
         post.password=password
         post.save()
-        return redirect('board_index')
+        return redirect('board:board_index')
 
     context={
         'id': post.id,

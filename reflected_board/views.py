@@ -56,13 +56,13 @@ def create(request):
             new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
 
             alert_message = '설공적으로 글을 생성하였습니다.'
-            return redirect('board_detail', board_id=new_board.id)
+            return redirect('reflected_board:board_index', board_id=new_board.id)
 
     context = {
         'alert_message': alert_message,
     }
 
-    return render(request, 'board/create.html', context)
+    return render(request, 'reflected_board/create.html', context)
 
 
 def detail(request, board_id):
@@ -104,7 +104,7 @@ def update(request, board_id):
         post.body = body
         post.password = password
         post.save()
-        return redirect('board_index')
+        return redirect('reflected_board:board_detail', board_id=board_id)
 
     context = {
         'id': post.id,
@@ -112,4 +112,4 @@ def update(request, board_id):
         'body': post.body,
     }
 
-    return render(request, 'board/update.html', context)
+    return render(request, 'reflected_board/update.html', context)

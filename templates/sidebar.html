@@ -21,7 +21,7 @@
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" href="{% url 'board_index' %}"> {# 버튼 클릭 시 board/urls 에서 설정한 name이 board_index로 이동함 #}
+        <a class="nav-link" href="{% url 'board:board_index' %}"> {# 버튼 클릭 시 board/urls 에서 설정한 name이 board_index로 이동함 #}
             <i class="fas fa-fw fa-table"></i>
             <span>STORED_XSS</span>
         </a>
@@ -31,7 +31,7 @@
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" href="{% url 'reflected_board:index' %}">
+        <a class="nav-link" href="{% url 'reflected_board:board_index' %}">
             <i class="fas fa-fw fa-table"></i>
             <span>REFLECTED_XSS</span>
         </a>

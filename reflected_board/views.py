@@ -10,12 +10,16 @@ from datetime import date
 # Create your views here.
 
 def index(request):
-    search=request.GET.get('search')
+    rows=board.objects.all().order_by('-id')
+    search=''
 
-    if search:
-        rows= board.objects.filter(name__icontains=search)
-    else:
-        rows = board.objects.all().order_by('-id')
+    if request.method == 'POST': #검색을 시도할 경우 POST로 요청이 들어옴
+        search=request.POST.get('search')
+
+        if search:
+            rows= board.objects.filter(title__iexact=search) #filter함수를 통해 원하는 값을 가져옴
+                                                            #title__iexact : DB에 title을 기준으로 대소문자 구분 없이 문자열이 완전히 일치하는 값을 가져옴
+
 
     paginator = Paginator(rows, 4)  # 페이지네이션을 위한 객체 생성, 파라미터로는 값과 한 페이지에 보일 갯수를 넣음
     page_number = request.GET.get('page')  # url을 통해 현재 페이지가 몇 페이지인지 확인하기 위함
@@ -24,6 +28,7 @@ def index(request):
     context = {
         'obj_list': page_obj.object_list,  # 가져온 페이지 데이터를 리스트형태로 형변환 해서 저장
         'page_obj': page_obj,
+        'search': search,
     }
 
 
@@ -71,9 +76,9 @@ def detail(request, board_id):
             print(delORupt)
             if delORupt == 'delete':
                 post.delete()
-                return redirect('board_index')
+                return redirect('reflected_board:board_index')
             elif delORupt == 'update':
-                return redirect('board_update', board_id=board_id)
+                return redirect('reflected_board:board_update', board_id=board_id)
             # else:
             # 404페이지 리턴
 
@@ -86,7 +91,7 @@ def detail(request, board_id):
         'id': post.id,
     }
 
-    return render(request, 'board/detail.html', context)
+    return render(request, 'reflected_board/detail.html', context)
 
 
 def update(request, board_id):

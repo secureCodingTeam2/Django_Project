@@ -57,7 +57,7 @@ def create(request):
 
             messages.success(request,'성공적으로 글을 생성했습니다..')
 
-            return redirect('reflected_board:board_index', board_id=new_board.id)
+            return redirect('reflected_board:board_detail', board_id=new_board.id)
 
     return render(request, 'reflected_board/create.html')
 

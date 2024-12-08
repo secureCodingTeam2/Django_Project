@@ -49,7 +49,7 @@ def create(request):
 
             new_board = board.objects.create(title=title, body=body, password=password, created_at=today)
             messages.success(request, '성공적으로 글을 생성했습니다..')
-            return redirect('board:board_detail', board_id=new_board.id)
+            return redirect('dom_board:board_detail', board_id=new_board.id)
 
     return render(request, 'dom_board/create.html')
 
